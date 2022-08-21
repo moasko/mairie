@@ -7,6 +7,10 @@ export function obtenirLesMotos(){
 }
 
 export function creerUneNovelleMoto(moto){
+    //check if moto object is empty
+    if(Object.keys(moto).length === 0){
+        return false
+    }
     return axios.post(motoEndPoint, moto)
 }
 
