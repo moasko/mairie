@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { Form, Input } from "antd";
 import { InputTextarea } from "primereact/inputtextarea";
+import { creerUneNovelleMoto } from "./ServiceMoto";
+
 
 const FormulaireMoto = (props) => {
   const [moto, setMoto] = useState(props.moto);
@@ -14,7 +16,17 @@ const FormulaireMoto = (props) => {
 
   const enregistrer = (values) => {
     console.log("values ", values);
-    props.enregistrer(values);
+    if (Object.keys(values).length === 0) {
+      return false
+    } else {
+      creerUneNovelleMoto(values).then((res) => {
+        console.log("res ", res);
+      }).catch((err) => {
+        console.log("err ", err);
+      });
+
+    }
+
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -28,7 +40,7 @@ const FormulaireMoto = (props) => {
       <Form
         name="basic"
         initialValues={{
-          code: moto.code,
+          code: moto.code || "12547",
           model: moto.model,
           year: moto.year,
           description: moto.description,
