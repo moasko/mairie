@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "code": "KM14001",
+    "model": "toyota",
+    "year": "2022",
+    "description": "pas",
+    "owner": "1",
+    "ownerPhone": "+2250574641453",
+    "marie_id": 1,
+    "createdAt": "2022-08-14T19:48:05.000Z",
+    "updatedAt": "2022-08-14T19:48:05.000Z"
+  },
+  {
+    "id": 2,
+    "code": "KM24001",
+    "model": "toyota",
+    "year": "1998",
+    "description": "pas",
+    "owner": "Jeans Koffi",
+    "ownerPhone": "+2250574641453",
+    "marie_id": 1,
+    "createdAt": "2022-08-14T22:43:29.000Z",
+    "updatedAt": "2022-08-14T22:43:29.000Z"
+  }
+]

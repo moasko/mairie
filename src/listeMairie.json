@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "code": "km47875",
+    "name": "mairie de koumassi",
+    "phone": "+2250574641453",
+    "password": "password",
+    "createdAt": "2022-08-20T10:59:01.000Z",
+    "updatedAt": "2022-08-20T10:59:01.000Z"
+  },
+  {
+    "id": 2,
+    "code": "cd47458",
+    "name": "mairie de cocody",
+    "phone": "+22507478758",
+    "password": "password",
+    "createdAt": "2022-08-20T10:59:01.000Z",
+    "updatedAt": "2022-08-20T10:59:01.000Z"
+  }
+]
