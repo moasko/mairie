@@ -101,7 +101,8 @@ const ListeMotos = () => {
       </div>
     );
   };
-
+ 
+  //Action ajouter
   const action = (rowData) => {
     return (
       <React.Fragment>
@@ -118,6 +119,8 @@ const ListeMotos = () => {
       </React.Fragment>
     );
   };
+
+  //Action modifier
 
   const actionAjouter = (rowData) => {
     setVisible(true);

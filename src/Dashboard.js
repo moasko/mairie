@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const Dashboard = (props) => {
 
+  //liste des moto
   const _motoListe = useSelector((data)=>data.motos.motos);
 
   const Box = (props) => {
