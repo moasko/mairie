@@ -6,8 +6,10 @@ import SidebarMenu from "./SidebarMenu";
 import Dashboard from "./Dashboard";
 import ListeMotos from "./ListeMotos";
 import Parametres from "./Parametre";
+import ListeAgent from './agent/ListeAgent'
 
-const Container = () => {
+
+const Container = (props) => {
   const { Content, Footer } = Layout;
 
   return (
@@ -17,13 +19,14 @@ const Container = () => {
         <Layout>
           <SidebarMenu />
           <Content style={{ margin: "0 10px" }}>
-            <section style={{ padding: 24, minHeight: 360 }}>
-              {/* {props.children} */}
-              <div className="mb-2 p-2" style={{ backgroundColor: "white", borderRadius:'6px' }}>
               <Dashboard />
+            <section style={{ padding: 24, minHeight: 360 }}>
+              {props.children}
+              <div className="mb-2 p-2" style={{ backgroundColor: "white", borderRadius:'6px' }}>
               </div>
               <div style={{ backgroundColor: "white" }}>
-                <ListeMotos />
+                {/* <ListeMotos /> */}
+                {/* <ListeAgent/> */}
               </div>
               {/* <Parametres/> */}
             </section>

@@ -2,40 +2,45 @@ import React from "react";
 import { Divider, Progress } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Dashboard = (props) => {
-
   //liste des moto
-  const _motoListe = useSelector((data)=>data.motos.motos);
+  const _motoListe = useSelector((data) => data.motos.motos);
 
   const Box = (props) => {
     return (
       <div className="col-md-3 mb-3">
-        <div
-          className="card "
-          style={{ border: props.border, height: "135px" }}
-        >
-          <div className="card-body center">
-            <div>{props.icon}</div>
-            <span
-              style={{ width: "1px", height: "70px", backgroundColor: "gray" }}
-            ></span>
-            <div>
-              <div className="card-title center">
-                <h4 className="psm_text_color_indigo">{props.libele}</h4>
-              </div>
-              <div className="text-start">
-                <h2 className="font-light mb-0 psm_text_color_indigo">
-                  {props.nombreFactures}
-                </h2>
+        <Link to={props.lien}>
+          <div
+            className="card "
+            style={{ border: props.border, height: "135px" }}
+          >
+            <div className="card-body center">
+              <div>{props.icon}</div>
+              <span
+                style={{
+                  width: "1px",
+                  height: "70px",
+                  backgroundColor: "gray",
+                }}
+              ></span>
+              <div>
+                <div className="card-title center">
+                  <h4 className="psm_text_color_indigo">{props.libele}</h4>
+                </div>
+                <div className="text-start">
+                  <h2 className="font-light mb-0 psm_text_color_indigo">
+                    {props.nombreFactures}
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     );
   };
-
 
   return (
     <div
@@ -47,12 +52,14 @@ const Dashboard = (props) => {
         border="1px solid #3b3490"
         nombreFactures={56}
         icon={<UserOutlined style={{ fontSize: "60px" }} />}
+        lien="/agent"
       />
       <Box
         libele="Motos"
         border="1px solid #fa8c16"
         nombreFactures={_motoListe.data ? _motoListe.data.length : 0}
         icon={<UserOutlined style={{ fontSize: "60px" }} />}
+        lien="/moto"
       />
     </div>
   );

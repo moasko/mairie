@@ -2,51 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { Form, Input } from "antd";
 import { InputTextarea } from "primereact/inputtextarea";
-import { creerUneNovelleMoto } from "./ServiceMoto";
-import { modifierUneMoto } from "./ServiceMoto";
-import * as serviceMoto from "./ServiceMoto";
+import { creerUneNovelleMoto } from "../ServiceMoto";
 
-const FormulaireMoto = (props) => {
-  const [moto, setMoto] = useState(props.moto);
+
+const FormulaireAgent = (props) => {
+  const [agent, setAgent] = useState(props.agent);
   const [value1, setValue1] = useState("");
- 
+
   useEffect(() => {
-    setMoto(props.moto);
+    setAgent(props.agent);
   }, []);
+
 
   const enregistrer = (values) => {
     console.log("values ", values);
-    if(values.model && values.id){
-      if (Object.keys(values).length === 0) {
+    if (Object.keys(values).length === 0) {
+      props.setVisible(false);
+      return false
+    } else {
+      creerUneNovelleMoto(values).then((res) => {
         props.setVisible(false);
-        return false;
-      } else {
-        modifierUneMoto(values)
-          .then((res) => {
-            props.setVisible(false);
-            console.log("res ", res);
-          })
-          .catch((err) => {
-            console.log("err ", err);
-          });
-      }
-    }
-    else{
-      if (Object.keys(values).length === 0) {
-        props.setVisible(false);
-        return false;
-      } else {
-        creerUneNovelleMoto(values)
-          .then((res) => {
-            props.setVisible(false);
-            console.log("res ", res);
-          })
-          .catch((err) => {
-            console.log("err ", err);
-          });
-      }
+        console.log("res ", res);
+      }).catch((err) => {
+        console.log("err ", err);
+      });
 
     }
+
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -55,20 +37,17 @@ const FormulaireMoto = (props) => {
 
   // console.log(props.categorie);
 
-  // const supprimerUneMoto=(values)=>{
-  //     props.supprimer(values)
-  // }
   return (
     <div id="FormulaireFamille">
       <Form
         name="basic"
         initialValues={{
-          code: moto.code || "12547",
-          model: moto.model,
-          year: moto.year,
-          description: moto.description,
-          owner: moto.owner,
-          ownerPhone: moto.owner_phone,
+          // code: agent.code || "12547",
+          id: agent.id,
+          createdAt: agent.createdAt,
+          user_name: agent.user_name,
+          phone: agent.phone,
+          marie_id: agent.marie_id,
         }}
         onFinish={enregistrer}
         onFinishFailed={onFinishFailed}
@@ -76,15 +55,19 @@ const FormulaireMoto = (props) => {
         layout="vertical"
       >
         <div className="center-around">
-          <Form.Item label="Code" name="code" className=" col-md-5">
+          {/* <Form.Item
+            label="Code"
+            name="code"
+            className=" col-md-5"
+          >
             <Input
               disabled
               className="p-inputtext p-inputtext-sm border_radius_6px"
             />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
-            label="Modèle"
-            name="model"
+            label="Nom"
+            name="user_name"
             rules={[
               {
                 required: true,
@@ -99,8 +82,8 @@ const FormulaireMoto = (props) => {
 
         <div className="center-around">
           <Form.Item
-            label="Année"
-            name="year"
+            label="Date d'achat"
+            name="createdAt"
             rules={[
               {
                 required: true,
@@ -111,7 +94,7 @@ const FormulaireMoto = (props) => {
           >
             <Input className="p-inputtext p-inputtext-sm border_radius_6px" />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="Propriétaire"
             name="owner"
             rules={[
@@ -123,12 +106,12 @@ const FormulaireMoto = (props) => {
             className=" col-md-5"
           >
             <Input className="p-inputtext p-inputtext-sm border_radius_6px" />
-          </Form.Item>
+          </Form.Item> */}
         </div>
         <div className="center-around">
           <Form.Item
             label="Téléphone"
-            name="ownerPhone"
+            name="phone"
             rules={[
               {
                 required: true,
@@ -142,7 +125,7 @@ const FormulaireMoto = (props) => {
               prefix="+225"
             />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="Description"
             name="description"
             rules={[
@@ -153,22 +136,22 @@ const FormulaireMoto = (props) => {
             ]}
             className=" col-md-5"
           >
-            {/* <Input className="p-inputtext p-inputtext-sm border_radius_6px" /> */}
+            {/* <Input className="p-inputtext p-inputtext-sm border_radius_6px" /> 
             <InputTextarea
               value={value1}
               onChange={(e) => setValue1(e.target.value)}
               rows={1}
               cols={30}
             />
-          </Form.Item>
+          </Form.Item> */}
         </div>
 
-        {moto.id ? props.setTitre(false) : props.setTitre(true)}
+        {agent.id ? props.setTitre(false) : props.setTitre(true)}
 
         <Form.Item>
           <Button
             // label="Enregistrer"
-            label={moto.id ? "Modifier" : "Enregistrer"}
+            label={agent.id ? "Modifier" : "Enregistrer"}
             icon="pi pi-check"
             className="p-button-smx w-100 mt-3 psm_bg_dark psm_border_none"
           />
@@ -179,4 +162,4 @@ const FormulaireMoto = (props) => {
   );
 };
 
-export default FormulaireMoto;
+export default FormulaireAgent;

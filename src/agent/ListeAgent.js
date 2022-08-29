@@ -4,22 +4,21 @@ import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
-import listeMoto from "./listeMoto.json";
-import CustomSidebar from "./CustomSidebar";
-import FormulaireMoto from "./FormulaireMoto";
-import * as ServiceMoto from "./ServiceMoto";
+import listeMoto from "../listeMoto.json";
+import CustomSidebar from "../CustomSidebar";
+import FormulaireMoto from "../FormulaireMoto";
+import * as ServiceMoto from "../ServiceMoto";
 import { useDispatch, useSelector } from "react-redux";
-import { getMotos } from "./store/actions/moto";
-
+import { getMotos } from "../store/actions/moto";
+import listeAgent from '../listeAgent.json'
+import FormulaireAgent from "./FormulaireAgent";
 const ListeMotos = () => {
-  let emptyMoto = {
+  let emptyAgent = {
     id: null,
-    code: "",
-    model: "",
-    description: "",
-    year: null,
-    owner: "",
-    owner_phone: "",
+    user_name: "",
+    password: "",
+    createdAt: "",
+    phone: "",
   };
 
   
@@ -27,7 +26,7 @@ const ListeMotos = () => {
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [moto, setMoto] = useState(emptyMoto);
+  const [agent, setAgent] = useState(emptyAgent);
   const [title, setTitle] = useState();
 
  const dispatch = useDispatch()
@@ -36,18 +35,18 @@ const ListeMotos = () => {
 //  console.log(_motoListe);
 
   useEffect(() => {
-      obtenirLesMotos();
+      // obtenirLesAgents();
       setVisible(false)
     initFilters();
   }, []);
 
-  const obtenirLesMotos = () => {
-    ServiceMoto.obtenirLesMotos().then((data) => {
-        dispatch(getMotos(data));
-    }).catch((error) => {
+  // const obtenirLesAgents = () => {
+  //   ServiceAgent.obtenirLesAgents().then((data) => {
+  //       dispatch(getMotos(data));
+  //   }).catch((error) => {
         
-    });
-  }
+  //   });
+  // }
 
   const initFilters = () => {
     setFilters({
@@ -114,43 +113,25 @@ const ListeMotos = () => {
         <Button
           icon="pi pi-trash"
           className="psm_border_none psm_button_rounded_md  bg-danger mr-2"
-          onClick={supprimerUneMoto(rowData)}
+        //   onClick={actionSupprimer}
         />
       </React.Fragment>
     );
   };
 
-
-  const supprimerUneMoto = (values)=>{
-    // console.log("values ", values);
-      if (Object.keys(values).length === 0) {
-        setVisible(false);
-        return false;
-      } else {
-        ServiceMoto.supprimerUneMoto(values)
-          .then((res) => {
-            setVisible(false);
-            // console.log("res ", res);
-          })
-          .catch((err) => {
-            console.log("err ", err);
-          });
-      }
-  }
-
   //Action modifier
 
   const actionAjouter = (rowData) => {
     setVisible(true);
-    setMoto(emptyMoto);
+    setAgent(emptyAgent);
     // console.log("ajouter", rowData.year);
   };
 
 
-  const actionModifier = (famille) => {
-    setMoto({ ...famille });
+  const actionModifier = (agent) => {
+    setAgent({ ...agent });
     setVisible(true);
-    // console.log("Modifier");
+    console.log("Modifier");
   };
 
 
@@ -163,27 +144,27 @@ const ListeMotos = () => {
     //     ServiceMoto.creerUneNovelleMoto(moto).then(response => {
     //         if (response.success) {
     //             obtenirLesMotos()
-    //             setMoto(emptyMoto)
+    //             setAgent(emptyAgent)
     //             setVisible(false)
     //         }
     //     })
     // }
 
-    // const enregistrer = (values) => {
-    //     // moto.model = values.model;
-    //     // if(moto.model){
-    //     //     creerUneNovelleMoto(moto)
-    //     // }else{
-    //         console.log("Veuillez saisir le nom du modèle");
-    //     // }
+    const enregistrer = (values) => {
+        // moto.model = values.model;
+        // if(moto.model){
+        //     creerUneNovelleMoto(moto)
+        // }else{
+            console.log("Veuillez saisir le nom du modèle");
+        // }
         
-    // };
+    };
 
     // const supprimerUneMototo = (moto) => {
     //     ServiceMoto.supprimerUneMoto(moto.id).then(response => {
     //         if (response.success) {
     //             obtenirLesMotos()
-    //             setMoto(emptyMoto)
+    //             setAgent(emptyAgent)
     //             setVisible(false)
     //         }
     //     })
@@ -194,101 +175,55 @@ const ListeMotos = () => {
     //   };
 
 
-    // const modifierUneMoto = (moto) => {
-    //   ServiceMoto.modifierUneMoto(moto).then((response) => {
-    //     if (response.success) {
-    //       mettreAjourLesMotos(moto);
-    //       setMoto(emptyMoto);
-    //       setVisible(false);
-    //     }
-    //   });
-    // };
-  
-    // const mettreAjourLesMotos = (newMoto) => {
-    //   let newList = _motoListe.data.filter((_moto) => _moto.id !== newMoto.id);
-    //   newList.push(newMoto);
-    //   // setFamilles(newList);
-    // };
-
-    // const enregistrer = (values) => {
-    //   moto.model = values.model;
-    //   if (moto.model) {
-    //     if (moto.id) {
-    //       modifierUneMoto(moto);
-    //     } 
-    //   }
-    // };
-    
   const renderTable = () => {
     return (
       <div>
         <DataTable
-          value={_motoListe.data}
+          // value={_motoListe.data}
+          value={listeAgent}
           header={filterTable()}
           size="small"
           loading={loading}
           responsiveLayout="scroll"
           filters={filters}
           globalFilterFields={[
-            "model",
-            "code",
-            "year",
-            "ownerPhone",
-            "owner",
+            "user_name",
+            "phone",
             "createdAt",
           ]}
         >
-          <Column field="code" sortable header="Code" style={{ width: "3%" }} />
+          <Column field="user_name" sortable header="Nom agent"/>
           <Column
-            field="model"
-            header="Modèle"
-            sortable
-            //   style={{ width: "7%" }}
-          />
-
-          <Column
-            field="year"
-            header="Année"
-            sortable
-            style={{ width: "10%" }}
-          />
-          <Column
-            field="owner"
-            header="Propriétaire"
-            sortable
-            //   style={{ width: "10%" }}
-          />
-            <Column
-            field="owner_phone"
+            field="phone"
             header="Téléphone"
             sortable
-            />
+          />
           <Column
             field="createdAt"
             header="Créé le"
             sortable
-            //   style={{ width: "10%" }}
           />
 
           <Column header="Actions" body={action} />
         </DataTable>
-         <CustomSidebar
-          title={title ? "Ajout de moto" : "Modifier la moto"}
+
+        <CustomSidebar
+          title={title ? "Ajouter un agent" : "Modifier un agent"}
           position="right"
           className="p-sidebar-mdx"
           visible={visible}
           setVisible={setVisible}
           content={
-            <FormulaireMoto
+            <FormulaireAgent
               setTitre={setTitle}
-              // enregistrer={enregistrer}
-              moto={moto}
+              enregistrer={enregistrer}
+              agent={agent}
               key={1}
               setVisible={setVisible}
 
-            /> 
-          } 
-         /> 
+            />
+          }
+        />
       </div>
     );
   };

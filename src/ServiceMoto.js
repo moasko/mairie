@@ -15,9 +15,15 @@ export function creerUneNovelleMoto(moto){
 }
 
 export function modifierUneMoto(moto){
-    return axios.put(motoEndPoint + "/" + moto.id, moto)
+    if(Object.keys(moto).length === 0){
+        return false
+    }
+    return axios.put(motoEndPoint,moto)
 }
 
-export function supprimerUneMoto(id){
-    return axios.delete(motoEndPoint + "/" + id)
+export function supprimerUneMoto(moto){
+    if(Object.keys(moto).length === 0){
+        return false
+    }
+    return axios.delete(motoEndPoint,moto)
 }

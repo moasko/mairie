@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Sidebar } from "primereact/sidebar";
 
-export function CustomSidebar(props) {
+function CustomSidebar(props) {
   const [visible, setVisible] = useState();
 
   useEffect(() => {
@@ -11,10 +11,11 @@ export function CustomSidebar(props) {
   return (
     <div className="col-md-12">
       <Sidebar
-      style={{width:'35em'}}
-        {...props}
+        style={{ width: "35em" }}
+        // {...props}
+        position="right"
         key={1}
-        visible={visible}
+        visible={props.visible}
         onHide={() => props.setVisible(false)}
         icons={() => (
           <React.Fragment>
