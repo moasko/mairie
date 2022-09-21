@@ -10,11 +10,10 @@ const Dashboard = (props) => {
 
   const Box = (props) => {
     return (
-      <div className="col-md-3 mb-3">
+      <div className="col-md-6 mb-3 mt-3">
         <Link to={props.lien}>
           <div
-            className="card "
-            style={{ border: props.border, height: "135px" }}
+            style={{ border: props.border, backgroundColor:"#fff", height: "135px" }}
           >
             <div className="card-body center">
               <div>{props.icon}</div>
@@ -49,18 +48,17 @@ const Dashboard = (props) => {
     >
       <Box
         libele="Agents"
-        border="1px solid #3b3490"
         nombreFactures={56}
         icon={<UserOutlined style={{ fontSize: "60px" }} />}
         lien="/agent"
       />
       <Box
         libele="Motos"
-        border="1px solid #fa8c16"
         nombreFactures={_motoListe.data ? _motoListe.data.length : 0}
         icon={<UserOutlined style={{ fontSize: "60px" }} />}
         lien="/moto"
       />
+
     </div>
   );
 };

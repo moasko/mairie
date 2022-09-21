@@ -19,7 +19,7 @@ const PageHeader = () => {
 
   return (
     <div id="AppHeader">
-      <Header className="psm_bg_dark p-0">
+      <Header className="p-0">
         <div className="container-fluid">
           <div
             className="row"

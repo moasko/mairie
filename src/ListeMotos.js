@@ -294,7 +294,7 @@ const ListeMotos = () => {
   };
 
   return (<div>
-    <div className="card">
+    <div >
     <div className="card-body">
     {renderTable()}
       

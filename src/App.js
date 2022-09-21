@@ -10,19 +10,20 @@ import ListeMotos from "./ListeMotos";
 import ListeAgent from "./agent/ListeAgent";
 import Dashboard from "./Dashboard";
 import { Connexion, Inscription } from "./authentification";
+import Layouts from "./components/layouts/Layouts";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Connexion />
-        <Container>
+     
+        <Layouts>
           <Routes>
             <Route exact path="/Inscription" element={<Inscription />} />
             <Route exact path="/moto" element={<ListeMotos />} />
             <Route exact path="/agent" element={<ListeAgent />} />
           </Routes>
-        </Container>
+        </Layouts>
       </BrowserRouter>
     </div>
   );

@@ -3,51 +3,40 @@ import { Button } from "primereact/button";
 import { Form, Input } from "antd";
 import { InputTextarea } from "primereact/inputtextarea";
 import { creerUneNovelleMoto } from "./ServiceMoto";
-import { modifierUneMoto } from "./ServiceMoto";
-import * as serviceMoto from "./ServiceMoto";
+import openNotification from "./lib/Notification";
+import { notification } from "antd";
+
+
 
 const FormulaireMoto = (props) => {
   const [moto, setMoto] = useState(props.moto);
   const [value1, setValue1] = useState("");
- 
+  const [addLoading,setAddLoading] = useState(false)
+
+
   useEffect(() => {
     setMoto(props.moto);
   }, []);
 
-  const enregistrer = (values) => {
-    console.log("values ", values);
-    if(values.model && values.id){
-      if (Object.keys(values).length === 0) {
-        props.setVisible(false);
-        return false;
-      } else {
-        modifierUneMoto(values)
-          .then((res) => {
-            props.setVisible(false);
-            console.log("res ", res);
-          })
-          .catch((err) => {
-            console.log("err ", err);
-          });
-      }
-    }
-    else{
-      if (Object.keys(values).length === 0) {
-        props.setVisible(false);
-        return false;
-      } else {
-        creerUneNovelleMoto(values)
-          .then((res) => {
-            props.setVisible(false);
-            console.log("res ", res);
-          })
-          .catch((err) => {
-            console.log("err ", err);
-          });
-      }
 
+  const enregistrer = (values) => {
+    if (Object.keys(values).length === 0) {
+      return false
+    } else {
+      creerUneNovelleMoto(values).then((res) => {
+        if(res){
+          notification.open({
+            key:"updatable",
+            message:"Moto Enregigtre avec succes",
+            description: "'hdjdjdjd ddjdjdj djdjdjdjh ddidi'",
+        });
+        }
+      }).catch((err) => {
+        console.log("err ", err);
+      });
     }
   };
+
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -55,9 +44,6 @@ const FormulaireMoto = (props) => {
 
   // console.log(props.categorie);
 
-  // const supprimerUneMoto=(values)=>{
-  //     props.supprimer(values)
-  // }
   return (
     <div id="FormulaireFamille">
       <Form
@@ -68,7 +54,7 @@ const FormulaireMoto = (props) => {
           year: moto.year,
           description: moto.description,
           owner: moto.owner,
-          ownerPhone: moto.owner_phone,
+          ownerPhone: moto.ownerPhone,
         }}
         onFinish={enregistrer}
         onFinishFailed={onFinishFailed}
@@ -76,7 +62,11 @@ const FormulaireMoto = (props) => {
         layout="vertical"
       >
         <div className="center-around">
-          <Form.Item label="Code" name="code" className=" col-md-5">
+          <Form.Item
+            label="Code"
+            name="code"
+            className=" col-md-5"
+          >
             <Input
               disabled
               className="p-inputtext p-inputtext-sm border_radius_6px"
@@ -168,7 +158,7 @@ const FormulaireMoto = (props) => {
         <Form.Item>
           <Button
             // label="Enregistrer"
-            label={moto.id ? "Modifier" : "Enregistrer"}
+            label={addLoading?"Enregistrement ...":moto.id ? "Modifier" : "Enregistrer"}
             icon="pi pi-check"
             className="p-button-smx w-100 mt-3 psm_bg_dark psm_border_none"
           />
